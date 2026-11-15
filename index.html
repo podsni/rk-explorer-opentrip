@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+
+<html lang="id">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
+<meta content="#10271d" name="theme-color"/>
+<meta content="RK Explorer" name="application-name"/>
+<meta content="yes" name="mobile-web-app-capable"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="RK Explorer" name="apple-mobile-web-app-title"/>
+<meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
+<link href="/manifest.webmanifest" rel="manifest"/>
+<link href="/assets/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
+<meta content="Pilih open trip RK Explorer ke Bromo, Tumpak Sewu, Bukit Premium, dan Ijen. Cek harga paket dan tanyakan jadwal aktual langsung ke admin." name="description"/>
+<meta content="RK Explorer — Open Trip Jawa Timur" property="og:title"/>
+<meta content="Temukan perjalanan pilihanmu, cek detail paket, dan tanyakan jadwal terbaru ke admin RK Explorer." property="og:description"/>
+<meta content="website" property="og:type"/>
+<meta content="https://rk-explorer-opentrip.vercel.app/" property="og:url"/>
+<meta content="https://rk-explorer-opentrip.vercel.app/assets/bromo-02.webp" property="og:image"/>
+<meta content="Pemandangan Gunung Bromo saat fajar" property="og:image:alt"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="https://rk-explorer-opentrip.vercel.app/assets/bromo-02.webp" name="twitter:image"/>
+<link href="https://rk-explorer-opentrip.vercel.app/" rel="canonical"/>
+<link href="/assets/favicon.svg" rel="icon" type="image/svg+xml"/>
+<title>RK Explorer — Open Trip Jawa Timur</title>
+<link href="base.css" rel="stylesheet"/>
+<link href="mobile.css" rel="stylesheet"/></head>
+<body><a class="skip-link" href="#trip">Langsung ke pilihan trip</a>
+<header class="topbar">
+<div class="wrap nav">
+<a aria-label="RK Explorer, beranda" class="brand" href="#home">
+<span aria-hidden="true" class="brand-mark"><svg fill="none" viewbox="0 0 48 40"><path d="M2 35 17 15l7 9 8-15 14 26H2Z" stroke="currentColor" stroke-linejoin="round" stroke-width="2.6"></path><path d="m27 20 5-6 5 8m-15 2 4 5m8 6h12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"></path></svg></span>
+<span class="brand-copy">RK EXPLORER<small>EXPLORE MORE · LIVE MORE</small></span>
+</a>
+<nav aria-label="Navigasi utama" class="nav-links" id="primary-nav">
+<p class="nav-menu-label">Paket perjalanan</p>
+<a href="#trip">Pilih trip</a><a href="#struk">Struk trip</a>
+<p class="nav-menu-label">Informasi perjalanan</p>
+<a href="#cara-pesan">Cara pesan</a><a href="#meeting-point">Meeting point</a><a href="#kontak">Kontak</a>
+<button aria-label="Pasang aplikasi RK Explorer" class="install-menu-button" id="install-app" type="button">Pasang aplikasi</button>
+</nav>
+<div class="nav-actions">
+<a class="nav-cta" href="#struk">Struk trip <span aria-hidden="true">↗</span></a>
+<button aria-controls="primary-nav" aria-expanded="false" aria-label="Buka menu" class="menu-toggle" type="button"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.8" viewbox="0 0 24 24"><path class="menu-icon-lines" d="M4 7h16M4 12h16M4 17h16"></path><path class="menu-icon-close" d="m6 6 12 12m0-12L6 18"></path></svg></button>
+</div>
+</div>
+</header><button aria-label="Tutup menu navigasi" class="menu-backdrop" hidden="True" tabindex="-1" type="button"></button>
+<main id="home">
+<section aria-labelledby="hero-title" class="hero">
+<div class="hero-content">
+<div class="eyebrow">Open trip Jawa Timur</div>
+<h1 id="hero-title">Open trip<br/><span>Jawa Timur.</span></h1>
+<p class="hero-copy">Pilih Bromo, Tumpak Sewu, Bukit Premium, atau Ijen. Atur peserta untuk menghitung estimasi, lalu tanyakan jadwal aktual kepada admin.</p>
+<div class="hero-actions">
+<a class="btn btn-primary" href="#trip">Pilih paket trip <span aria-hidden="true">↗</span></a>
+<a class="btn btn-outline" href="#cara-pesan">Cara pesan</a>
+</div>
+<div class="hero-meta"><span><b>04</b> destinasi pilihan</span><span><b>Malang</b> titik berangkat pilihan</span><span><b>RK Explorer</b> good people, good trip</span></div>
+</div>
+<div class="hero-note"><strong>Rencanakan tanpa buru-buru</strong>Bandingkan harga dan detail yang tersedia. Jadwal serta ketersediaan dikonfirmasi oleh admin.</div>
+</section>
+<section aria-labelledby="featured-title" class="featured">
+<div class="wrap">
+<div class="featured-head"><div><p class="section-kicker">Mulai dari sini</p><h2 id="featured-title">Mau ke mana dulu?</h2></div><p>Jelajahi destinasi dan bandingkan paket. Jadwal dan ketersediaan dikonfirmasi oleh admin.</p></div>
+<div class="featured-row">
+<a class="feature-link" href="#bromo" style="--feature-image:url('assets/bromo-01.webp')"><small>Sunrise · Jeep</small><strong>Planet Bromo</strong><span>Mulai Rp550K / orang ↗</span></a>
+<a class="feature-link" href="#tumpak-sewu" style="--feature-image:url('assets/tumpak-02.webp')"><small>Air terjun · Pronojiwo</small><strong>Tumpak Sewu</strong><span>Mulai Rp375K / orang ↗</span></a>
+<a class="feature-link" href="#bukit-premium" style="--feature-image:url('assets/bukit-landscape.webp')"><small>One day trip</small><strong>Bukit Premium</strong><span>Mulai Rp250K / Malang ↗</span></a>
+<a class="feature-link mobile-only" href="#ijen" style="--feature-image:url('assets/ijen-02.webp')"><small>Kawah · Baluran</small><strong>Ijen Crater</strong><span>Rp399K / orang ↗</span></a></div>
+</div>
+</section>
+<section class="section" id="trip">
+<div class="wrap">
+<div class="section-head">
+<div><p class="section-kicker">Pilih petualanganmu</p><h2>Temukan trip yang pas untukmu.</h2></div>
+<p class="section-desc">Lihat rute dan fasilitas, atur peserta, lalu cek estimasi biaya. Tanggal dan slot dikonfirmasi ke admin.</p>
+</div>
+<div class="trip-tools">
+<div class="searchbox"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 4.5 4.5" stroke-linecap="round"></path></svg><input aria-label="Cari destinasi atau aktivitas" id="trip-search" placeholder="Cari destinasi atau aktivitas…" type="search"/><button aria-label="Hapus kata pencarian" class="search-clear" hidden="True" type="button">×</button></div>
+<div aria-label="Filter paket" class="filters" role="group">
+<button aria-pressed="true" class="filter-chip active" data-filter="all" type="button">Semua paket</button>
+<button aria-pressed="false" class="filter-chip" data-filter="sunrise" type="button">Sunrise</button>
+<button aria-pressed="false" class="filter-chip" data-filter="waterfall" type="button">Air terjun</button>
+<button aria-pressed="false" class="filter-chip" data-filter="one-day" type="button">One day trip</button>
+<button aria-pressed="false" class="filter-chip" data-filter="blue-fire" type="button">Blue fire</button>
+</div>
+</div>
+<div class="results-row"><p aria-live="polite" class="results-label" id="results-label">Menampilkan 4 paket</p><button class="reset-filters" hidden="True" id="reset-filters" type="button">Reset filter</button></div>
+<div class="trip-grid" id="trip-grid">
+<article class="trip-card" data-tags="sunrise jeep bromo gunung alam malang" id="bromo">
+<div class="trip-photo"><img alt="Panorama Gunung Bromo dan lautan pasir saat matahari terbit" decoding="async" height="360" loading="lazy" src="assets/bromo-01.webp" width="480"/><span class="trip-tag">Sunrise · Jeep</span><h3 class="trip-photo-title">Planet Bromo</h3></div>
+<div class="trip-content">
+<div class="price-row"><div><span class="price-label">Harga paket / peserta</span><div class="price" data-card-price="">Rp550.000 <small>/ orang</small></div></div><div class="meeting">Meeting point<br/><strong>Seluruh Kota Malang</strong><br/>Penjemputan mulai 00.30 WIB</div></div>
+<p class="trip-blurb">Mengejar matahari terbit, lalu menjelajah sudut-sudut ikonik Bromo dengan jeep.</p>
+<div class="highlights"><span class="chip">Sunrise Planet Bromo</span><span class="chip">Savanna</span><span class="chip">Pasir Berbisik</span><span class="chip">Bukit Teletubbies</span></div>
+<details class="trip-details"><summary>Lihat itinerary &amp; fasilitas</summary><div class="details-body">
+<details class="detail-group"><summary>Rangkaian perjalanan</summary><div><ul class="itinerary"><li><time>00.30</time><span>Penjemputan mulai dari wilayah Kota Malang.</span></li><li><time>Perjalanan</time><span>Sunrise Planet Bromo, Savana, Pasir Berbisik, Bukit Widodaren, Bukit Teletubbies, dan Watu Adem.</span></li><li><time>±11.00</time><span>Kembali ke basecamp.</span></li><li><time>±12.00</time><span>Perkiraan tiba di Malang.</span></li></ul>
+<p>Waktu kembali merupakan perkiraan yang tercantum di flyer, bukan jadwal keberangkatan aktif.</p>
+</div></details><details class="detail-group"><summary>Termasuk dalam paket</summary><div><ul><li>Transportasi PP Malang kota–basecamp</li><li>Jeep, tiket masuk TN BTS, dokumentasi drone &amp; foto</li><li>Guide profesional</li></ul>
+</div></details><details class="detail-group"><summary>Tidak termasuk</summary><div><p>Daftar pengecualian tidak dirinci di flyer. Tanyakan biaya tambahan atau kebutuhan pribadi ke admin.</p>
+</div></details></div></details>
+<div class="estimate-box"><div class="estimate-controls"><div class="field"><label for="qty-bromo">Peserta</label><input aria-label="Jumlah peserta Planet Bromo" class="participant-count" id="qty-bromo" inputmode="numeric" max="20" min="1" type="number" value="1"/></div></div><button class="small-cta add-button" data-add="bromo" type="button">Tambah ke struk <span aria-hidden="true">＋</span></button></div>
+<div class="card-footer"><a class="text-link" href="https://wa.me/6282330748620?text=Halo%20RK%20Explorer%2C%20saya%20ingin%20tanya%20paket%20Planet%20Bromo." rel="noopener" target="_blank">Tanya paket ini ↗</a><span class="price-alt">Estimasi, bukan konfirmasi booking</span></div>
+</div>
+</article>
+<article class="trip-card" data-tags="waterfall tumpak sewu air terjun pronojiwo malang nature" id="tumpak-sewu">
+<div class="trip-photo"><img alt="Air terjun lebar Tumpak Sewu di tengah hutan hijau" decoding="async" height="178" loading="lazy" src="assets/tumpak-02.webp" width="320"/><span class="trip-tag">Air terjun · Pronojiwo</span><h3 class="trip-photo-title">Tumpak Sewu</h3></div>
+<div class="trip-content">
+<div class="price-row"><div><span class="price-label">Open trip / peserta</span><div class="price" data-card-price="">Rp375.000 <small>/ orang</small></div><span class="price-alt" data-price-alt="">Privat Rp425.000 / peserta · min. 5 peserta</span></div><div class="meeting">Trip Pronojiwo<br/><strong>PP dari Malang</strong><br/>Detail titik kumpul konfirmasi admin</div></div>
+<p class="trip-blurb">Satu hari untuk panorama air terjun, jalur bawah, Goa Tetes, dan Telaga Biru.</p>
+<div class="highlights"><span class="chip">Panorama Tumpak Sewu</span><span class="chip">Goa Tetes</span><span class="chip">Telaga Biru</span><span class="chip">Teras Semeru</span></div>
+<details class="trip-details"><summary>Lihat itinerary &amp; fasilitas</summary><div class="details-body">
+<details class="detail-group"><summary>Tujuan yang tercantum di flyer</summary><div><ul><li>Sunrise Teras Semeru</li><li>Panorama Tumpak Sewu dan Tumpak Sewu bawah</li><li>Goa Tetes dan Telaga Biru</li></ul>
+<p>Rincian jam dan urutan transit tidak dicantumkan; mintalah itinerary terbaru kepada admin.</p>
+</div></details><details class="detail-group"><summary>Termasuk dalam paket</summary><div><ul><li>Transportasi Hiace PP Malang dan tiket masuk semua destinasi</li><li>Dokumentasi foto-video (iPhone) dan drone di Tumpak Sewu bawah</li><li>Snack dan air mineral</li></ul>
+</div></details><details class="detail-group"><summary>Tidak termasuk</summary><div><p>Daftar pengecualian tidak dirinci di flyer. Konfirmasi rincian fasilitas dan biaya tambahan dengan admin. Paket privat Rp425.000 per peserta dengan minimal 5 peserta.</p>
+</div></details></div></details>
+<div class="estimate-box"><div class="estimate-controls"><div class="field"><label for="variant-tumpak">Jenis paket</label><select class="price-choice" id="variant-tumpak"><option data-min="1" data-price="375000" value="open">Open trip · Rp375K</option><option data-min="5" data-price="425000" value="private">Privat · Rp425K / min. 5</option></select></div><div class="field"><label for="qty-tumpak">Peserta</label><input aria-label="Jumlah peserta Tumpak Sewu" class="participant-count" id="qty-tumpak" inputmode="numeric" max="20" min="1" type="number" value="1"/></div></div><button class="small-cta add-button" data-add="tumpak" type="button">Tambah ke struk <span aria-hidden="true">＋</span></button></div>
+<div class="card-footer"><a class="text-link" href="https://wa.me/6282330748620?text=Halo%20RK%20Explorer%2C%20saya%20ingin%20tanya%20trip%20Tumpak%20Sewu%20%2F%20Pronojiwo." rel="noopener" target="_blank">Tanya paket ini ↗</a><span class="price-alt">Harga sesuai pilihan paket</span></div>
+</div>
+</article>
+<article class="trip-card" data-tags="sunrise one-day bukit premium sabana hiking alam malang surabaya" id="bukit-premium">
+<div class="trip-photo"><img alt="Pendaki menyusuri sabana Bukit Premium dalam foto dari flyer RK Explorer" decoding="async" height="245" loading="lazy" src="assets/bukit-landscape.webp" width="360"/><span class="trip-tag">One day trip · Negeri di atas awan</span><h3 class="trip-photo-title">Bukit Premium</h3></div>
+<div class="trip-content">
+<div class="price-row"><div><span class="price-label">Harga paket / peserta</span><div class="price" data-card-price="">Rp250.000 <small>/ Malang</small></div><span class="price-alt" data-price-alt="">Rp280.000 / peserta dari Surabaya</span></div><div class="meeting">Meeting point<br/><strong>Malang / Surabaya</strong><br/>Berkumpul 02.00 WIB</div></div>
+<p class="trip-blurb">Menapaki hamparan sabana dan bukit dengan sunrise, dokumentasi drone, serta guide.</p>
+<div class="highlights"><span class="chip">One day trip</span><span class="chip">Sunrise &amp; sabana</span><span class="chip">Dokumentasi drone</span></div>
+<details class="trip-details"><summary>Lihat itinerary &amp; fasilitas</summary><div class="details-body">
+<details class="detail-group"><summary>Itinerary dari flyer</summary><div><ul class="itinerary"><li><time>02.00</time><span>Berkumpul / meeting point.</span></li><li><time>02.15</time><span>Berangkat menuju Bukit Premium.</span></li><li><time>04.30</time><span>Tiba di basecamp, registrasi &amp; briefing.</span></li><li><time>05.00</time><span>Perjalanan menuju Bukit Premium.</span></li><li><time>05.45</time><span>Tiba di Bukit Premium.</span></li><li><time>06.00</time><span>Menikmati sunrise &amp; pemandangan.</span></li><li><time>07.30</time><span>Explore sabana &amp; spot terbaik.</span></li><li><time>08.30</time><span>Dokumentasi foto &amp; drone.</span></li><li><time>10.00</time><span>Kembali ke basecamp.</span></li><li><time>11.00</time><span>Perjalanan kembali.</span></li><li><time>13.00</time><span>Perkiraan tiba di Malang / Surabaya.</span></li></ul>
+</div></details><details class="detail-group"><summary>Termasuk dalam paket</summary><div><ul><li>Kendaraan PP dari Malang / Surabaya, tiket masuk</li><li>Dokumentasi drone, makan 1x, guide profesional, P3K, dan air mineral</li></ul>
+</div></details><details class="detail-group"><summary>Tidak termasuk</summary><div><ul><li>Makanan &amp; minuman selain yang disediakan</li><li>Pengeluaran pribadi, parkir, dan jas hujan</li></ul>
+<p>Flyer menyebut keberangkatan setiap hari dan kuota terbatas; jadwal serta ketersediaan aktual tetap harus dikonfirmasi.</p>
+</div></details></div></details>
+<div class="estimate-box"><div class="estimate-controls"><div class="field"><label for="variant-bukit">Titik berangkat</label><select class="price-choice" id="variant-bukit"><option data-price="250000" value="malang">Malang · Rp250K</option><option data-price="280000" value="surabaya">Surabaya · Rp280K</option></select></div><div class="field"><label for="qty-bukit">Peserta</label><input aria-label="Jumlah peserta Bukit Premium" class="participant-count" id="qty-bukit" inputmode="numeric" max="20" min="1" type="number" value="1"/></div></div><button class="small-cta add-button" data-add="bukit" type="button">Tambah ke struk <span aria-hidden="true">＋</span></button></div>
+<div class="card-footer"><a class="text-link" href="https://wa.me/6282330748620?text=Halo%20RK%20Explorer%2C%20saya%20ingin%20tanya%20paket%20Bukit%20Premium." rel="noopener" target="_blank">Tanya paket ini ↗</a><span class="price-alt">Malang / Surabaya</span></div>
+</div>
+</article>
+<article class="trip-card" data-tags="blue-fire ijen crater kawah alam baluran pantai bama surabaya malang" id="ijen">
+<div class="trip-photo"><img alt="Fenomena blue fire di kawasan Kawah Ijen" decoding="async" height="453" loading="lazy" src="assets/ijen-02.webp" width="700"/><span class="trip-tag">Blue fire · Alam</span><h3 class="trip-photo-title">Ijen Crater</h3></div>
+<div class="trip-content">
+<div class="price-row"><div><span class="price-label">Harga paket / orang</span><div class="price" data-card-price="">Rp399.000 <small>/ orang</small></div></div><div class="meeting">Meeting point<br/><strong>Surabaya &amp; Malang</strong><br/>Jadwal terbaru konfirmasi admin</div></div>
+<p class="trip-blurb">Petualangan Kawah Ijen, Taman Nasional Baluran, hingga Pantai Bama.</p>
+<div class="highlights"><span class="chip">Kawah Ijen</span><span class="chip">TN Baluran</span><span class="chip">Pantai Bama</span></div>
+<details class="trip-details"><summary>Lihat itinerary &amp; fasilitas</summary><div class="details-body">
+<details class="detail-group"><summary>Area tujuan paket</summary><div><ul><li>Kawah Ijen</li><li>Taman Nasional Baluran</li><li>Pantai Bama</li></ul>
+<p>Flyer yang tersedia mencantumkan tanggal keberangkatan September, bukan jadwal aktif; konfirmasi tanggal dan urutan perjalanan terbaru kepada admin.</p>
+</div></details><details class="detail-group"><summary>Termasuk dalam paket</summary><div><ul><li>Transportasi AC PP, tiket, parkir, tiket masuk wisata</li><li>Air mineral, sarapan / box, guide, dan P3K standar</li></ul>
+</div></details><details class="detail-group"><summary>Tidak termasuk</summary><div><ul><li>Biaya di luar paket, kapal di Bama, tiket local guide</li><li>Ojek / kuda, tips, dan perlengkapan pribadi</li></ul>
+</div></details></div></details>
+<div class="estimate-box"><div class="estimate-controls"><div class="field"><label for="qty-ijen">Peserta</label><input aria-label="Jumlah peserta Ijen Crater" class="participant-count" id="qty-ijen" inputmode="numeric" max="20" min="1" type="number" value="1"/></div></div><button class="small-cta add-button" data-add="ijen" type="button">Tambah ke struk <span aria-hidden="true">＋</span></button></div>
+<div class="card-footer"><a class="text-link" href="https://wa.me/6282330748620?text=Halo%20RK%20Explorer%2C%20saya%20ingin%20tanya%20paket%20Ijen%20Crater." rel="noopener" target="_blank">Tanya paket ini ↗</a><span class="price-alt">Tanya jadwal aktual</span></div>
+</div>
+</article>
+</div>
+<div class="no-results" id="no-results"><strong>Belum ketemu trip yang pas?</strong>Coba nama destinasi atau aktivitas lain, atau hapus filter untuk melihat semua pilihan.<button class="reset-filters" type="button">Tampilkan semua trip</button></div>
+<div class="notice"><span aria-hidden="true" class="notice-mark">i</span><div><strong>Catatan harga &amp; jadwal.</strong> Harga dan fasilitas dirangkum dari flyer RK Explorer yang tersedia. Jadwal, titik jemput, kuota, dan perubahan harga harus dikonfirmasi langsung sebelum perjalanan. Struk di halaman ini hanya estimasi; situs belum memproses booking atau pembayaran.</div></div>
+</div>
+</section>
+<section aria-labelledby="receipt-title" class="receipt-section" id="struk">
+<div class="wrap">
+<div class="receipt-head"><div><p class="section-kicker">Rencana perjalananmu</p><h2 id="receipt-title">Struk trip digital.</h2></div><p>Tambahkan paket dan jumlah peserta untuk melihat estimasi biaya. Struk ini tidak memesan slot atau mengunci harga.</p></div>
+<div class="receipt-panel">
+<div class="receipt-list-wrap">
+<div class="receipt-list-head"><h3>Pilihan paket</h3><span class="receipt-count" id="receipt-count">0 peserta</span></div>
+<div class="receipt-empty" id="receipt-empty"><strong>Petualanganmu dimulai di sini</strong>Pilih destinasi dan jumlah peserta. Estimasi biaya akan muncul otomatis.<br/><a href="#trip">Pilih trip dulu ↗</a></div>
+<div class="receipt-items" id="receipt-items"></div>
+</div>
+<div class="receipt-summary">
+<div><h3>Ringkasan estimasi</h3><p>Hitungan berdasarkan harga flyer yang ditampilkan. Harga final dan jadwal hanya dapat dipastikan oleh admin.</p><div class="summary-breakdown"><span>Jumlah peserta</span><strong id="summary-people">0</strong></div></div>
+<div><div class="total-row"><span>Total estimasi</span><strong id="summary-total">Rp0</strong></div><div class="receipt-actions"><a aria-disabled="true" class="btn btn-primary" href="#trip" id="ask-schedule">Pilih paket dahulu <span aria-hidden="true">↗</span></a><button class="btn btn-outline" hidden="True" id="clear-cart" type="button">Kosongkan struk</button></div><p class="receipt-disclaimer">Tombol WhatsApp hanya menyiapkan pertanyaan kepada admin. Pesan tidak terkirim otomatis, booking belum terjadi, dan tidak ada pembayaran di website ini.</p></div>
+</div>
+</div>
+</div>
+</section>
+<section class="section how" id="cara-pesan">
+<div class="wrap">
+<div class="section-head"><div><p class="section-kicker">Cara pesan</p><h2>Mulai dari rencana, lanjutkan dengan konfirmasi.</h2></div><p class="section-desc">Langkah singkat untuk menghubungi admin. Tidak ada jadwal atau kuota yang dianggap tersedia sebelum dibalas.</p></div>
+<div class="steps">
+<article class="step-card"><span class="step-no">01</span><h3>Pilih trip dan peserta</h3><p>Gunakan pencarian dan filter, baca itinerary serta fasilitas, kemudian tambahkan pilihan ke struk digital.</p></article>
+<article class="step-card"><span class="step-no">02</span><h3>Cek estimasi</h3><p>Periksa jenis paket, titik berangkat, jumlah peserta, dan total perkiraan. Ubah jumlah atau hapus pilihan jika perlu.</p></article>
+<article class="step-card"><span class="step-no">03</span><h3>Tanyakan jadwal ke admin</h3><p>Kirim pertanyaan WhatsApp yang disiapkan dari struk. Minta konfirmasi tanggal, slot, meeting point, harga, dan syarat aktual.</p></article>
+</div>
+</div>
+</section>
+<section class="experience" id="tentang">
+<div class="wrap">
+<div class="experience-panel">
+<div class="experience-copy">
+<p class="section-kicker">Explore more, live more</p>
+<h2>Lebih dari sekadar sampai di tujuan.</h2>
+<p>Pilih paket yang sesuai, kenali apa saja yang tercantum, lalu hubungi RK Explorer untuk memastikan semua detail sebelum berangkat.</p>
+<ul class="experience-list"><li><span aria-hidden="true" class="tick">✓</span><span>Harga dan fasilitas mengikuti materi paket yang tersedia.</span></li><li><span aria-hidden="true" class="tick">✓</span><span>Itinerary dibedakan antara jadwal yang tertulis dan detail yang belum tersedia.</span></li><li><span aria-hidden="true" class="tick">✓</span><span>Jadwal terbaru, titik kumpul, dan kuota dikonfirmasi langsung ke admin.</span></li></ul>
+</div>
+<div aria-label="Cahaya biru di Kawah Ijen" class="experience-image" role="img"><div class="image-note">Jawa Timur · Indonesia</div></div>
+</div>
+</div>
+</section>
+<section class="meeting-section" id="meeting-point">
+<div class="wrap">
+<div class="section-head"><div><p class="section-kicker">Meeting point &amp; kontak</p><h2>Mulai perjalanan dari mana?</h2></div><p class="section-desc">Informasi titik kumpul diringkas sesuai materi paket. Alamat atau titik jemput spesifik perlu diminta ke admin.</p></div>
+<div class="meeting-grid">
+<article class="meeting-card"><small>Planet Bromo</small><strong>Penjemputan Kota Malang</strong><p>Seluruh Kota Malang; mulai 00.30 WIB. Titik jemput rinci konfirmasi admin.</p></article>
+<article class="meeting-card"><small>Tumpak Sewu</small><strong>PP dari Malang</strong><p>Perjalanan ke Pronojiwo. Titik kumpul dan jam rinci konfirmasi admin.</p></article>
+<article class="meeting-card"><small>Bukit Premium</small><strong>Malang / Surabaya</strong><p>Meeting point 02.00 WIB. Pilihan asal menentukan harga paket.</p></article>
+<article class="meeting-card"><small>Ijen Crater</small><strong>Surabaya &amp; Malang</strong><p>Jadwal serta titik kumpul aktual dikonfirmasi kepada admin.</p></article>
+</div>
+</div>
+</section>
+<section class="contact" id="kontak">
+<div class="wrap contact-inner">
+<div><p class="section-kicker">Rencanakan perjalanan</p><h2>Sudah tahu destinasi pilihanmu?</h2><p>Tanya admin RK Explorer tentang tanggal, slot, titik kumpul, dan rincian paket terbaru. Pesan tidak terkirim otomatis; belum ada konfirmasi booking maupun pembayaran di website ini.</p></div>
+<div class="contact-links"><a class="btn btn-primary" href="https://wa.me/6282330748620?text=Halo%20RK%20Explorer%2C%20saya%20ingin%20tanya%20jadwal%20open%20trip." rel="noopener" target="_blank">Chat admin di WhatsApp <span aria-hidden="true">↗</span></a><div class="socials"><a href="https://instagram.com/rkexplorer.id" rel="noopener" target="_blank">Instagram @rkexplorer.id</a><a href="https://tiktok.com/@rkexplorer" rel="noopener" target="_blank">TikTok @rkexplorer</a></div></div>
+</div>
+</section>
+</main>
+<footer><div class="wrap footer-inner"><a class="brand" href="#home"><span aria-hidden="true" class="brand-mark"><svg fill="none" viewbox="0 0 48 40"><path d="M2 35 17 15l7 9 8-15 14 26H2Z" stroke="currentColor" stroke-linejoin="round" stroke-width="2.6"></path><path d="m27 20 5-6 5 8m-15 2 4 5m8 6h12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"></path></svg></span><span>RK EXPLORER</span></a><div class="footer-note">Informasi paket dirangkum dari flyer RK Explorer yang tersedia. Konfirmasi detail terbaru langsung ke admin. Struk bersifat estimasi; situs ini tidak memproses booking atau pembayaran.</div></div></footer>
+<div aria-label="Ringkasan estimasi dan akses cepat" class="mobile-bar"><div class="mobile-bar-inner"><div class="mobile-total"><small id="mobile-count">0 peserta di struk</small><strong id="mobile-total">Rp0</strong></div><a class="btn btn-primary" href="#struk" id="mobile-receipt-link">Lihat struk <span aria-hidden="true">↓</span></a></div></div>
+<dialog aria-describedby="clear-description" aria-labelledby="clear-title" class="confirm-dialog" id="clear-dialog"><h2 id="clear-title">Kosongkan struk?</h2><p id="clear-description">Semua pilihan paket dan peserta akan dihapus dari estimasi ini. Kamu bisa menambahkannya lagi.</p><form method="dialog"><button autofocus="" class="btn cancel-clear" value="cancel">Kembali ke struk</button><button class="btn confirm-clear" value="clear">Ya, kosongkan struk</button></form></dialog><div aria-live="polite" class="toast" id="toast" role="status"></div>
+<dialog aria-labelledby="install-title" class="install-dialog" id="install-dialog">
+<form class="install-dialog-content" method="dialog">
+<button aria-label="Tutup panduan pemasangan" class="install-dialog-close" value="close">×</button>
+<p class="install-dialog-kicker">RK Explorer · aplikasi web</p>
+<h2 id="install-title">Pasang di layar utama</h2>
+<p class="install-dialog-intro">Simpan RK Explorer di ponsel untuk membuka kembali pilihan trip dan estimasi dengan cepat.</p>
+<div class="install-platforms">
+<section aria-labelledby="install-ios-title"><h3 id="install-ios-title">iPhone atau iPad</h3><ol><li>Buka situs ini di Safari, lalu ketuk tombol Bagikan.</li><li>Pilih “Tambahkan ke Layar Utama”, lalu ketuk Tambahkan.</li></ol></section>
+<section aria-labelledby="install-android-title"><h3 id="install-android-title">Android</h3><ol><li>Ketuk “Pasang aplikasi” bila browser menampilkan konfirmasi.</li><li>Jika belum muncul, buka menu browser ⋮ dan pilih “Install app” atau “Tambahkan ke layar utama”.</li></ol></section>
+</div>
+<button class="btn btn-primary install-dialog-done" value="close">Mengerti</button>
+</form>
+</dialog>
+<script defer="True" src="app.js"></script></body>
+</html>
