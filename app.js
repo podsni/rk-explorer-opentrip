@@ -12,14 +12,25 @@
   const formatter = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 });
   const money = n => formatter.format(n);
   const safeQty = (value, min = 1) => Math.min(20, Math.max(min, Number.parseInt(value, 10) || min));
-  const variantText = (id, value) => id === 'tumpak' ? (value === 'private' ? 'Paket privat' : 'Open trip') : id === 'bukit' ? `Dari ${value === 'surabaya' ? 'Surabaya' : 'Malang'}` : 'Paket reguler';
+  const variantText = (id, mode, departure = '') => `${mode === 'private' ? 'Private trip' : 'Open trip'}${id === 'bukit' ? ` · dari ${departure === 'surabaya' ? 'Surabaya' : 'Malang'}` : ''}`;
   const config = id => {
     const card = document.getElementById(packages[id].card);
     const input = $('.participant-count', card);
-    const select = $('.price-choice', card);
-    const option = select?.selectedOptions[0];
-    const variant = select?.value || 'regular';
-    return { id, card, input, select, variant, price: option ? Number(option.dataset.price) : packages[id].price, min: Number(option?.dataset.min || 1), key: `${id}:${variant}` };
+    const modeSelect = $('.trip-mode', card);
+    const departureSelect = $('.departure-choice', card);
+    const modeOption = modeSelect?.selectedOptions[0];
+    const mode = modeSelect?.value || 'open';
+    const departure = departureSelect?.value || '';
+    let price = null;
+    if (mode === 'private') {
+      price = modeOption?.dataset.price ? Number(modeOption.dataset.price) : null;
+    } else if (departureSelect) {
+      price = Number(departureSelect.selectedOptions[0]?.dataset.price || packages[id].price);
+    } else {
+      price = Number(modeOption?.dataset.price || packages[id].price);
+    }
+    const min = mode === 'private' ? Number(modeOption?.dataset.min || 1) : 1;
+    return { id, card, input, modeSelect, departureSelect, variant: mode, departure, price, min, key: `${id}:${mode}:${departure}` };
   };
   const toast = (text, showReceipt = false) => {
     const el = $('#toast');
@@ -35,7 +46,9 @@
     toast.timer = setTimeout(() => el.classList.remove('show'), 4500);
   };
   const people = () => [...cart.values()].reduce((n, item) => n + item.qty, 0);
-  const total = () => [...cart.values()].reduce((n, item) => n + item.qty * item.price, 0);
+  const total = () => [...cart.values()].reduce((n, item) => n + (item.price ?? 0) * item.qty, 0);
+  const hasQuoteItems = () => [...cart.values()].some(item => item.price === null);
+  const totalLabel = amount => hasQuoteItems() ? (amount ? `${money(amount)} + penawaran` : 'Minta penawaran') : money(amount);
   const refreshCard = (id, normalize = true) => {
     const c = config(id);
     const qty = safeQty(c.input.value, c.min);
@@ -43,47 +56,87 @@
     c.input.min = String(c.min);
     $('[data-step="decrease"]', c.card).disabled = qty <= c.min;
     $('[data-step="increase"]', c.card).disabled = qty >= 20;
-    $('.minimum-note', c.card).textContent = `Min. ${c.min} · maks. 20 orang`;
-    $('[data-preview-label]', c.card).textContent = `Estimasi ${qty} orang`;
-    $('[data-preview-total]', c.card).textContent = money(qty * c.price);
-    const unit = $('.price small', c.card);
+    const minNote = $('.minimum-note', c.card);
+    minNote.textContent = c.variant === 'private' && c.price === null
+      ? 'Jumlah peserta untuk penawaran · minimum dikonfirmasi admin'
+      : c.min > 1 ? `Minimum ${c.min} peserta · maks. 20 orang` : 'Jumlah peserta · maks. 20 orang';
+    $('[data-preview-label]', c.card).textContent = c.price === null ? `${qty} peserta · menunggu penawaran` : `Estimasi ${qty} orang`;
+    $('[data-preview-total]', c.card).textContent = c.price === null ? 'Minta penawaran' : money(qty * c.price);
     const priceEl = $('[data-card-price]', c.card);
-    if (c.select) {
-      priceEl.replaceChildren(document.createTextNode(`${money(c.price)} `));
+    const labelEl = $('.price-label', c.card);
+    c.card.classList.toggle('is-quote-only', c.price === null);
+    labelEl.textContent = c.variant === 'private' ? 'Harga private trip' : 'Harga open trip / peserta';
+    priceEl.replaceChildren();
+    if (c.price === null) {
+      priceEl.textContent = 'Minta penawaran';
+    } else {
+      priceEl.append(document.createTextNode(`${money(c.price)} `));
       const suffix = document.createElement('small');
-      suffix.textContent = id === 'bukit' ? `/ ${c.variant === 'surabaya' ? 'Surabaya' : 'Malang'}` : '/ orang';
+      suffix.textContent = id === 'bukit' ? `/ ${c.departure === 'surabaya' ? 'Surabaya' : 'Malang'}` : '/ orang';
       priceEl.append(suffix);
-      const alt = $('[data-price-alt]', c.card);
-      if (id === 'tumpak') alt.textContent = c.variant === 'private' ? 'Paket privat · minimum 5 peserta' : 'Privat Rp425.000 / orang · min. 5 peserta';
-      if (id === 'bukit') alt.textContent = c.variant === 'surabaya' ? 'Dari Malang Rp250.000 / orang' : 'Dari Surabaya Rp280.000 / orang';
+    }
+    const alt = $('[data-price-alt]', c.card);
+    if (alt) {
+      if (c.variant === 'private' && c.price === null) {
+        alt.textContent = 'Harga private trip belum tercantum. Minta penawaran dan konfirmasi minimum peserta ke admin.';
+      } else if (c.variant === 'private') {
+        alt.textContent = `Private trip · ${money(c.price)} / peserta · minimum ${c.min} peserta.`;
+      } else if (id === 'bukit') {
+        alt.textContent = c.departure === 'surabaya' ? 'Open trip dari Surabaya Rp280.000 / peserta' : 'Open trip dari Malang Rp250.000 / peserta';
+      } else {
+        alt.textContent = 'Jadwal dan ketersediaan dikonfirmasi oleh admin.';
+      }
     }
     const button = $('[data-add]', c.card);
-    button.innerHTML = `${cart.has(c.key) ? 'Perbarui struk' : 'Tambah ke struk'} <span aria-hidden="true">${cart.has(c.key) ? '↻' : '＋'}</span>`;
-    button.setAttribute('aria-label', `${cart.has(c.key) ? 'Perbarui' : 'Tambahkan'} ${packages[id].name}, ${variantText(id, c.variant)}, ${qty} peserta ke struk estimasi`);
+    button.textContent = `${cart.has(c.key) ? 'Perbarui struk' : 'Tambah ke struk'} `;
+    const plus = document.createElement('span');
+    plus.setAttribute('aria-hidden', 'true');
+    plus.textContent = cart.has(c.key) ? '↻' : '＋';
+    button.append(plus);
+    const selectedType = variantText(id, c.variant, c.departure);
+    button.setAttribute('aria-label', `${cart.has(c.key) ? 'Perbarui' : 'Tambahkan'} ${packages[id].name}, ${selectedType}, ${qty} peserta ke struk estimasi`);
+    const askLink = $('[data-ask]', c.card);
+    if (askLink) {
+      const priceRequest = c.price === null
+        ? 'Harga private trip belum tercantum; mohon kirim penawaran serta konfirmasi minimum peserta.'
+        : `Harga yang tercantum ${money(c.price)} per peserta${c.min > 1 ? `, minimum ${c.min} peserta` : ''}.`;
+      const message = `Halo RK Explorer, saya ingin menanyakan jadwal dan ketersediaan ${selectedType} untuk ${packages[id].name}. Jumlah peserta: ${qty}. ${priceRequest} Mohon konfirmasi tanggal, titik kumpul, dan syarat terbaru. Ini baru pertanyaan; belum merupakan booking dan belum ada pembayaran.`;
+      askLink.href = `https://wa.me/6282330748620?text=${encodeURIComponent(message)}`;
+    }
   };
   const refreshCards = () => Object.keys(packages).forEach(id => refreshCard(id));
   const renderCart = (focusTarget) => {
     const list = $('#receipt-items');
     list.replaceChildren();
     const entries = [...cart.entries()];
-    const count = people(), amount = total();
+    const count = people(), amount = total(), hasQuotes = hasQuoteItems();
     $('#receipt-empty').hidden = !!entries.length;
     $('#receipt-count').textContent = `${count} peserta`;
     $('#summary-people').textContent = `${count} peserta`;
-    $('#summary-total').textContent = money(amount);
+    $('#summary-total').textContent = totalLabel(amount);
+    $('#summary-total-label').textContent = hasQuotes ? 'Subtotal harga diketahui' : 'Total estimasi';
+    $('#quote-note').hidden = !hasQuotes;
     $('#mobile-count').textContent = entries.length ? `${entries.length} pilihan · ${count} peserta` : 'Jawa Timur, langkah berikutnya';
-    $('#mobile-total').textContent = entries.length ? money(amount) : 'Temukan tripmu';
+    $('#mobile-total').textContent = entries.length ? totalLabel(amount) : 'Temukan tripmu';
     $('.mobile-bar').classList.toggle('has-items', !!entries.length);
     const mobileAction = $('#mobile-receipt-link');
     mobileAction.href = entries.length ? '#struk' : '#trip';
     mobileAction.innerHTML = entries.length ? 'Lihat struk <span aria-hidden="true">↗</span>' : 'Jelajahi trip <span aria-hidden="true">↗</span>';
-    mobileAction.setAttribute('aria-label', entries.length ? `Lihat struk, ${count} peserta, total estimasi ${money(amount)}` : 'Jelajahi semua paket trip');
+    mobileAction.setAttribute('aria-label', entries.length ? `Lihat struk, ${count} peserta, ${totalLabel(amount)}` : 'Jelajahi semua paket trip');
     $('#clear-cart').hidden = !entries.length;
     const ask = $('#ask-schedule');
     if (entries.length) {
-      ask.textContent = 'Tanyakan jadwal via WhatsApp ↗';
-      const lines = entries.map(([, i]) => `• ${i.name} (${i.variantText}), ${i.qty} peserta × ${money(i.price)} = ${money(i.qty * i.price)}`).join('\n');
-      const message = `Halo RK Explorer, saya ingin menanyakan jadwal aktual dan ketersediaan paket berikut.\n\n${lines}\n\nTotal estimasi dari website: ${money(amount)}. Mohon konfirmasi tanggal, slot, titik kumpul, harga final, serta syarat paket. Ini baru pertanyaan; belum merupakan booking dan belum ada pembayaran.`;
+      ask.textContent = hasQuotes ? 'Tanyakan jadwal & penawaran via WhatsApp ↗' : 'Tanyakan jadwal via WhatsApp ↗';
+      const lines = entries.map(([, item]) => {
+        const priceText = item.price === null
+          ? 'harga private trip belum tercantum · minta penawaran dan konfirmasi minimum peserta'
+          : `${item.qty} peserta × ${money(item.price)} = ${money(item.qty * item.price)}${item.min > 1 ? ` · minimum ${item.min} peserta` : ''}`;
+        return `• ${item.name} — ${item.variantText}, ${item.qty} peserta — ${priceText}`;
+      }).join('\n');
+      const totalText = hasQuotes
+        ? `Subtotal paket dengan harga yang tercantum: ${money(amount)}. Nilai ini belum mencakup ${[...cart.values()].filter(item => item.price === null).map(item => `${item.name} private trip`).join(', ')} yang menunggu penawaran.`
+        : `Total estimasi dari website: ${money(amount)}.`;
+      const message = `Halo RK Explorer, saya ingin menanyakan jadwal aktual dan ketersediaan paket berikut.\n\n${lines}\n\n${totalText} Mohon konfirmasi tanggal, slot, titik kumpul, harga final, penawaran private trip, serta syarat paket. Ini baru pertanyaan; belum merupakan booking dan belum ada pembayaran.`;
       ask.href = `https://wa.me/6282330748620?text=${encodeURIComponent(message)}`;
       ask.target = '_blank'; ask.rel = 'noopener';
     } else {
@@ -97,8 +150,10 @@
       line.dataset.key = key;
       line.innerHTML = '<div><div class="receipt-item-name"></div><div class="receipt-item-note"></div></div><strong class="receipt-subtotal"></strong><div class="receipt-controls"><button class="qty-btn" type="button" data-action="decrease">−</button><span class="qty-display"></span><button class="qty-btn" type="button" data-action="increase">+</button><button class="remove-line" type="button" data-action="remove">Hapus</button></div>';
       $('.receipt-item-name', line).textContent = item.name;
-      $('.receipt-item-note', line).textContent = `${item.variantText} · ${money(item.price)} / orang · min. ${item.min}`;
-      $('.receipt-subtotal', line).textContent = money(item.price * item.qty);
+      $('.receipt-item-note', line).textContent = item.price === null
+        ? `${item.variantText} · minta penawaran · minimum peserta dikonfirmasi admin`
+        : `${item.variantText} · ${money(item.price)} / orang${item.min > 1 ? ` · min. ${item.min}` : ''}`;
+      $('.receipt-subtotal', line).textContent = item.price === null ? 'Minta penawaran' : money(item.price * item.qty);
       $('.qty-display', line).textContent = `${item.qty} orang`;
       const lower = $('[data-action="decrease"]', line), upper = $('[data-action="increase"]', line), remove = $('[data-action="remove"]', line);
       lower.disabled = item.qty <= item.min; upper.disabled = item.qty >= 20;
@@ -111,7 +166,7 @@
         const c = config(item.id);
         if (c.key === key) c.input.value = String(item.qty);
         renderCart({ key, action });
-        toast(`${item.name}: ${item.qty} peserta. Total estimasi ${money(total())}.`);
+        toast(`${item.name}: ${item.qty} peserta. ${item.price === null ? 'Menunggu penawaran.' : `Total estimasi ${money(total())}.`}`);
       };
       lower.addEventListener('click', () => change(-1, 'decrease'));
       upper.addEventListener('click', () => change(1, 'increase'));
@@ -157,15 +212,16 @@
     $('.estimate-box', c.card).insertBefore(preview, $('[data-add]', c.card));
     c.input.addEventListener('input', () => refreshCard(id, false));
     c.input.addEventListener('change', () => refreshCard(id));
-    c.select?.addEventListener('change', () => {
+    c.modeSelect?.addEventListener('change', () => {
       refreshCard(id);
-      if (id === 'tumpak' && config(id).min === 5) toast('Paket privat membutuhkan minimal 5 peserta.');
+      if (config(id).min > 1) toast(`Private trip Tumpak Sewu membutuhkan minimal ${config(id).min} peserta.`);
     });
+    c.departureSelect?.addEventListener('change', () => refreshCard(id));
     $('[data-add]', c.card).addEventListener('click', () => {
       const current = config(id);
       const qty = safeQty(current.input.value, current.min);
       const exists = cart.has(current.key);
-      cart.set(current.key, { id, name: packages[id].name, variantText: variantText(id, current.variant), variant: current.variant, price: current.price, min: current.min, qty });
+      cart.set(current.key, { id, name: packages[id].name, variantText: variantText(id, current.variant, current.departure), variant: current.variant, departure: current.departure, price: current.price, min: current.min, qty });
       renderCart();
       toast(`${packages[id].name}: ${qty} peserta ${exists ? 'diperbarui' : 'ditambahkan'}.`, true);
     });
@@ -214,6 +270,57 @@
     button.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'nearest', inline: 'nearest' });
   }));
   $$('.feature-link').forEach(link => link.addEventListener('click', resetFilters));
+
+  const galleryDialog = $('#gallery-dialog');
+  const galleryImage = $('#gallery-image');
+  const galleryFigure = $('#gallery-figure');
+  const galleryItems = $$('[data-gallery-open]').map(button => {
+    const image = $('img', button);
+    return {
+      full: image.dataset.full || image.src,
+      alt: image.alt,
+      caption: `${$('.gallery-card-caption strong', button).textContent} · ${$('.gallery-card-caption small', button).textContent}`
+    };
+  });
+  let galleryIndex = 0;
+  let galleryReturnFocus = null;
+  const showGalleryImage = index => {
+    galleryIndex = (index + galleryItems.length) % galleryItems.length;
+    const item = galleryItems[galleryIndex];
+    galleryImage.src = item.full;
+    galleryImage.alt = item.alt;
+    $('#gallery-caption').textContent = item.caption;
+    $('#gallery-counter').textContent = `${galleryIndex + 1} / ${galleryItems.length}`;
+  };
+  $$('[data-gallery-open]').forEach((button, index) => button.addEventListener('click', () => {
+    galleryReturnFocus = button;
+    showGalleryImage(index);
+    galleryDialog.showModal();
+    $('#gallery-close').focus({ preventScroll: true });
+  }));
+  $('#gallery-close').addEventListener('click', () => galleryDialog.close());
+  $('#gallery-prev').addEventListener('click', () => showGalleryImage(galleryIndex - 1));
+  $('#gallery-next').addEventListener('click', () => showGalleryImage(galleryIndex + 1));
+  galleryDialog.addEventListener('keydown', event => {
+    if (event.key === 'ArrowLeft') { event.preventDefault(); showGalleryImage(galleryIndex - 1); }
+    if (event.key === 'ArrowRight') { event.preventDefault(); showGalleryImage(galleryIndex + 1); }
+  });
+  galleryDialog.addEventListener('click', event => { if (event.target === galleryDialog) galleryDialog.close(); });
+  galleryDialog.addEventListener('close', () => {
+    galleryReturnFocus?.focus({ preventScroll: true });
+    galleryReturnFocus = null;
+  });
+  let swipeStart = null;
+  galleryFigure.addEventListener('pointerdown', event => {
+    if (event.pointerType === 'touch') swipeStart = { x: event.clientX, y: event.clientY };
+  });
+  galleryFigure.addEventListener('pointerup', event => {
+    if (!swipeStart) return;
+    const dx = event.clientX - swipeStart.x, dy = event.clientY - swipeStart.y;
+    if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy)) showGalleryImage(galleryIndex + (dx < 0 ? 1 : -1));
+    swipeStart = null;
+  });
+  galleryFigure.addEventListener('pointercancel', () => { swipeStart = null; });
   const menuButton = $('.menu-toggle'), nav = $('#primary-nav');
   const mobile = matchMedia('(max-width: 760px)');
   const setBackgroundInert = opening => {

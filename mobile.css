@@ -317,3 +317,39 @@ input, select, button, a, summary { touch-action: manipulation; }
   .hero { min-height: max(555px, 100svh); }
   .hero-content { width: calc(100% - 32px); }
 }
+
+
+@media (max-width: 760px) {
+  .gallery-section { padding: 42px 0; }
+  .gallery-head { display: block; margin-bottom: 17px; }
+  .gallery-head .section-desc { margin-top: 9px; }
+  .gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }
+  .gallery-card { aspect-ratio: 1.08 / 1; border-radius: 14px; }
+  .gallery-card-caption { right: 9px; bottom: 9px; left: 10px; }
+  .gallery-card-caption strong { font-size: 13px; }
+  .gallery-card-caption small { font-size: 9px; }
+  .gallery-dialog { width: calc(100% - 20px); max-height: calc(100dvh - 20px - env(safe-area-inset-top) - env(safe-area-inset-bottom)); border-radius: 18px; }
+  .gallery-dialog-inner { max-height: calc(100dvh - 20px - env(safe-area-inset-top) - env(safe-area-inset-bottom)); padding: 10px; }
+  .gallery-dialog-top { padding-bottom: 8px; }
+  .gallery-dialog-top h2 { font-size: 14px; }
+  .gallery-close { flex-basis: 48px; width: 48px; height: 48px; }
+  .gallery-figure { border-radius: 11px; }
+  .gallery-figure img { max-width: 100%; max-height: min(69dvh, 640px); }
+  .gallery-figure figcaption { align-items: flex-start; padding: 9px 10px; font-size: 12px; }
+  .gallery-dialog-controls { gap: 8px; padding-top: 9px; }
+  .gallery-control { min-height: 50px; flex: 1 1 0; padding-inline: 8px; font-size: 11px; }
+  .trip-card.is-quote-only .price { font-size: 22px; }
+  .quote-note { font-size: 11px !important; }
+  .mobile-total strong { max-width: 205px; font-size: 13px; }
+}
+@media (max-width: 374px) {
+  .gallery-grid { gap: 7px; }
+  .gallery-card-caption strong { font-size: 12px; }
+  .gallery-dialog-controls { gap: 6px; }
+  .gallery-control { gap: 5px; padding-inline: 6px; font-size: 10px; }
+  .gallery-control span { white-space: nowrap; }
+  .mobile-total strong { max-width: 168px; font-size: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gallery-card img { transition: none; }
+}

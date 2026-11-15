@@ -1,4 +1,4 @@
-const CACHE_NAME = 'rk-explorer-pwa-v3';
+const CACHE_NAME = 'rk-explorer-pwa-v4';
 const APP_SHELL = [
   '/',
   '/base.css',
@@ -14,7 +14,11 @@ const APP_SHELL = [
   '/assets/bromo-02.webp',
   '/assets/tumpak-02.webp',
   '/assets/bukit-landscape.webp',
-  '/assets/ijen-02.webp'
+  '/assets/ijen-02.webp',
+  '/assets/bromo-01.jpg',
+  '/assets/bromo-02.jpg',
+  '/assets/tumpak-02.jpg',
+  '/assets/ijen-02.jpg'
 ];
 
 self.addEventListener('install', event => {
